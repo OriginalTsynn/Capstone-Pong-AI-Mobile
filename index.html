@@ -41,7 +41,7 @@
         function preload(){
             // image files
             this.load.image('paddle', '../assets/paddle.png')
-            this.load.image('ball', '../assets/balls.png')
+            this.load.image('ball', '../assets/ball.png')
 
             // sound files
             game.load.audio('hit_1', ['../assets/hit_1.wav'])
@@ -54,9 +54,11 @@
             //  Phaser sets things up in layers.  First to be called will be the bottom most layer.
             //  thus any background images need to be loaded first, otherwise they will cover over anything else
             game.stage.backgroundColor = '#888888';
-            //Create the paddles
+            // Create the paddles
             paddle1 = create_paddle(0, game.world.centerY)
             paddle2 = create_paddle(game.world.width -8,game.world.centerY)
+            // Create the ball
+            ball = create_ball(game.world.centerX, game.world.centerY)
 
 
         }
@@ -67,16 +69,30 @@
         }
 
 // -------------------------------------------------------------
-function create_paddle(x, y) {
+        function create_paddle(x, y) {
             var paddle = game.add.sprite(x,y,'paddle')
-            paddle.anchor.setTo(0.5,0.5)                        //  Initial position to the middle of the screen
+            paddle.anchor.setTo(0.5,0.5)                        //  Sets anchor to the middle of the sprite body
             game.physics.arcade.enable(paddle)                  //  Enable physics
             paddle.body.collideWorldBounds = true               //  Don't let the paddle leave the confines of the world
 
             return paddle
+                }
+
+
+
+// -------------------------------------------------------------
+
+        function create_ball(x, y){
+            var ball = game.add.sprite(x,y,'ball')
+            ball.anchor.setTo(0.5,0.5)                          //  Sets anchor to the middle of the sprite body
+            game.physics.arcade.enable(ball)                    //  Enable physics
+            ball.body.collideWorldBounds = true                 //  Keeps ball confined to world
+            ball.body.bounce.setTo(1,1)                        //  Setting bounce velocities
+            ball.scale.setTo(0.3,0.3)                         //  shrink ball size to 30% of original
+
+
+            return ball
         }
-
-
 
 
 
