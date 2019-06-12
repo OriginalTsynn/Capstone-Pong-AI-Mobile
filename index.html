@@ -62,10 +62,12 @@
             ball_launched = false
             ball_velocity = 300                                 //  inital ball velocity.  Can have different starting points if I implement difficulties
             game.input.onDown.add(launch_ball, this)            //  launch the ball on mouse click
-
+            //  Scoreboard
+            score1_text = game.add.text(128,128, '0', {font: "64px Gabriella", fill: "#ffffff", align: "center"})
+            score2_text = game.add.text(game.world.width -128,128, '0', {font: "64px Gabriella", fill: "#ffffff", align: "center"})
+            score1 = 0
+            score2 = 0
             //  Input Events
-
-
             // cursors = this.input.keyboard.createCursorKeys();
         }
 // -------------------------------------------------------------
