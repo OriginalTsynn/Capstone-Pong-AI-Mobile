@@ -59,7 +59,9 @@
             paddle2 = create_paddle(game.world.width -8,game.world.centerY)
             // Create the ball
             ball = create_ball(game.world.centerX, game.world.centerY)
-
+            ball_launched = false
+            ball_velocity = 300                                 //  inital ball velocity.  Can have different starting points if I implement difficulties
+            game.input.onDown.add(launch_ball, this)            //  launch the ball on mouse click
 
         }
 // -------------------------------------------------------------
@@ -72,8 +74,9 @@
         function create_paddle(x, y) {
             var paddle = game.add.sprite(x,y,'paddle')
             paddle.anchor.setTo(0.5,0.5)                        //  Sets anchor to the middle of the sprite body
-            game.physics.arcade.enable(paddle)                  //  Enable physics
+            game.physics.arcade.enable(paddle, true)                  //  Enable physics
             paddle.body.collideWorldBounds = true               //  Don't let the paddle leave the confines of the world
+            paddle.scale.setTo(0.5,0.5)                         //  shrink paddle size by 50%
 
             return paddle
                 }
@@ -85,16 +88,26 @@
         function create_ball(x, y){
             var ball = game.add.sprite(x,y,'ball')
             ball.anchor.setTo(0.5,0.5)                          //  Sets anchor to the middle of the sprite body
-            game.physics.arcade.enable(ball)                    //  Enable physics
+            game.physics.arcade.enable(ball, true)                    //  Enable physics
             ball.body.collideWorldBounds = true                 //  Keeps ball confined to world
             ball.body.bounce.setTo(1,1)                        //  Setting bounce velocities
             ball.scale.setTo(0.3,0.3)                         //  shrink ball size to 30% of original
 
-
             return ball
         }
 
-
+        function launch_ball(){
+            if(ball_launched){
+                ball.x = game.world.centerX
+                ball.y = game.world.centerY
+                ball.body.velocity.setTo(0,0)
+                ball_launched = false
+            } else {
+                ball.body.velocity.x = -ball_velocity
+                ball.body.velocity.y = ball_velocity
+                ball_launched = true
+            }
+        }
 
 
 
