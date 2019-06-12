@@ -63,12 +63,20 @@
             ball_velocity = 300                                 //  inital ball velocity.  Can have different starting points if I implement difficulties
             game.input.onDown.add(launch_ball, this)            //  launch the ball on mouse click
 
+            //  Input Events
+
+
+            // cursors = this.input.keyboard.createCursorKeys();
         }
 // -------------------------------------------------------------
         //  this is what updates every frame
         function update(){
 
+            control_paddle(paddle1, game.input.y, game.input.x)
+
+
         }
+
 
 // -------------------------------------------------------------
         function create_paddle(x, y) {
@@ -80,7 +88,20 @@
 
             return paddle
                 }
-
+        function control_paddle(paddle, y, x){
+            paddle.x = x
+            paddle.y = y
+            if(paddle.y < paddle.height / 2){
+                paddle.y = paddle.height / 2
+            } else if (paddle.y > game.world.height - paddle.height / 2){
+                paddle.y = game.world.height - paddle.height / 2
+                }
+            if(paddle.x < paddle.width / 2){
+                paddle.x = paddle.width / 2
+            } else if (paddle.x > game.world.width - paddle.width / 2){
+                paddle.x = game.world.width - paddle.width / 2
+                }
+            }
 
 
 // -------------------------------------------------------------
