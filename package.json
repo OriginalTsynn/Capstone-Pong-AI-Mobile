@@ -1,0 +1,21 @@
+{
+  "name": "Capstone-Pong-AI-Mobile",
+  "version": "1.0.0",
+  "description": "This is my unit 4 project for General Assembly.  The plan is to create Pong, make an AI computer opponent, and to make it a native mobile app",
+  "main": "phaser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OriginalTsynn/Capstone-Pong-AI-Mobile.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OriginalTsynn/Capstone-Pong-AI-Mobile/issues"
+  },
+  "homepage": "https://github.com/OriginalTsynn/Capstone-Pong-AI-Mobile#readme",
+  "dependencies": {}
+}
