@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pong</title>
+    <!-- must call phaser before any other script -->
+    <script type="text/javascript" src="phaser.min.js"></script>
+    <style type = "text/css">
+    body {
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
+        }
+    </style>
+</head>
+<body>
+    <script type = "text/javascript">
+        //   initializing the phaser game!  pixels, auto-detect, and core functions
+        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {preload: preload, create: create, update: update})
+
+        //  initiate players
+        var paddle1
+        var paddle2
+        //  ball stuff
+        var ball
+        var ball_launched
+        var ball_velocity
+        //  score stuff
+        var score1_text
+        var score2_text
+        var score1
+        var score2
+        //  maybe keyboard control
+        var cursors
+// -------------------------------------------------------------
+
+
+        // preload is for loading everything
+        function preload(){
+
+
+        }
+// -------------------------------------------------------------
+        // the set up function
+        function create(){
+
+
+
+        }
+// -------------------------------------------------------------
+        //  this is what updates every frame
+        function update(){
+
+        }
+
+
+
+
+        </script>
+</body>
+</html>
+
+
