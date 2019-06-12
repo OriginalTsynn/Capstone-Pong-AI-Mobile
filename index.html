@@ -58,9 +58,9 @@
             paddle1 = create_paddle(0, game.world.centerY)
             paddle2 = create_paddle(game.world.width -8,game.world.centerY)
             // Create the ball
-            ball = create_ball(game.world.centerX, game.world.centerY)
             ball_launched = false
-            ball_velocity = 300                                 //  inital ball velocity.  Can have different starting points if I implement difficulties
+            ball_velocity = 350                                 //  inital ball velocity.  Can have different starting points if I implement difficulties
+            ball = create_ball(game.world.centerX, game.world.centerY)
             game.input.onDown.add(launch_ball, this)            //  launch the ball on mouse click
             //  Scoreboard
             score1_text = game.add.text(128,128, '0', {font: "64px Gabriella", fill: "#ffffff", align: "center"})
@@ -73,9 +73,33 @@
 // -------------------------------------------------------------
         //  this is what updates every frame
         function update(){
+            score1_text.text = score1
+            score2_text.text = score2
 
-            control_paddle(paddle1, game.input.y, game.input.x)
+            control_paddle(paddle1, game.input.y, game.input.x)  //  give us control of the left paddle
 
+            //  set up collision for paddles and ball with sound effects!
+            game.physics.arcade.collide(paddle1, ball, function(){
+                game.sound.play('hit_1')
+                })
+            game.physics.arcade.collide(paddle2, ball, function(){
+                game.sound.play('hit_2')
+                })
+            //  scoreboard updating
+            if(ball.body.blocked.right){
+                score1 += 1
+                console.log('exit right, p1 scores')
+            }
+            if(ball.body.blocked.left){
+                score2 += 1
+                console.log('exit left, computer scores')
+            }
+
+            //  Introducing our fake AI computer opponent!
+            paddle2.body.velocity.setTo(ball.body.velocity.y)       // This gets paddle 2 to track the ball
+            // paddle2.body.velocity.x=0                               // disable movement on x axis for p2
+            paddle2.body.maxVelocity.y = 250                        // cap p2 y velocity
+            paddle2.body.maxVelocity.x = 250                        // cap p2 x velocity
 
         }
 
@@ -84,8 +108,9 @@
         function create_paddle(x, y) {
             var paddle = game.add.sprite(x,y,'paddle')
             paddle.anchor.setTo(0.5,0.5)                        //  Sets anchor to the middle of the sprite body
-            game.physics.arcade.enable(paddle, true)                  //  Enable physics
+            game.physics.arcade.enable(paddle)                  //  Enable physics
             paddle.body.collideWorldBounds = true               //  Don't let the paddle leave the confines of the world
+            paddle.body.immovable = true                        //  Set paddle to immovable/impassable
             paddle.scale.setTo(0.5,0.5)                         //  shrink paddle size by 50%
 
             return paddle
@@ -113,8 +138,8 @@
             ball.anchor.setTo(0.5,0.5)                          //  Sets anchor to the middle of the sprite body
             game.physics.arcade.enable(ball, true)                    //  Enable physics
             ball.body.collideWorldBounds = true                 //  Keeps ball confined to world
-            ball.body.bounce.setTo(1,1)                        //  Setting bounce velocities
-            ball.scale.setTo(0.3,0.3)                         //  shrink ball size to 30% of original
+            ball.body.bounce.setTo(0.9,0.9)                        //  Setting bounce velocities
+            ball.scale.setTo(0.25,0.25)                         //  shrink ball size to 25% of original
 
             return ball
         }
