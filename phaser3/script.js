@@ -60,12 +60,12 @@ var Pong = new Phaser.Class({
         //  TODO Randomize ball starting direction and velocity
         this.ball = this.physics.add.sprite( this.width / 2, this.height / 2, 'ball', 'balls.png' )
         this.ball.setCollideWorldBounds( true )
-        this.ball.setBounce( 1, 1.01 )
+        this.ball.setBounce( 1.01, 1.01 )
         this.ball.setScale( 0.5, 0.5 )
         this.ball.setVelocity( 350 );
         this.ball.setVelocityY(this.velocityY);
         this.ball.setVelocityX( this.velocityX );
-
+        this.ball.setFriction(0)
 
         emitter.startFollow( this.ball )
         emitter.setScale( 0.05, 0.05 );
@@ -77,6 +77,7 @@ var Pong = new Phaser.Class({
         this.paddle1.setImmovable()                                                                         //  Set paddle to immovable/impassable
         this.paddle1.setScale( 0.5, 0.5 )                                                                   //  shrink paddle size by 50%
         this.paddle1.setCollideWorldBounds( true )                                                          //  confine the paddle to the canvas boundaries
+        this.paddle1.setFriction(0)
 
         this.paddle2 = this.physics.add.sprite( this.width - 50, this.height / 2, 'paddle2' )
         this.paddle2.setImmovable()
@@ -86,7 +87,7 @@ var Pong = new Phaser.Class({
         // Colliders that handle ball to paddle contact
         this.physics.add.collider( this.ball, this.paddle1, this.collisionPaddle1, null, this)
         this.physics.add.collider( this.ball, this.paddle2)
-        this.physics.add.collider( this.paddle1, this.paddle2, this.collisionPaddle2, null, this)
+        this.physics.add.collider( this.paddle1, this.paddle2)
 
 
         // @ts-ignore
@@ -105,8 +106,8 @@ var Pong = new Phaser.Class({
       this.velocityY=100;
       this.ball.x=this.width/2;
         this.ball.y = this.height / 2;
-        this.ball.setVelocityX(Math.random() * 600 - 250)
-        this.ball.setVelocityY(Math.random() * 600 - 250)
+        this.ball.setVelocityX(Math.random() * 1000 - 350)
+        this.ball.setVelocityY(Math.random() * 1000 - 350)
       this.paddle1.x=50;
       this.paddle1.y=this.height/2;
       this.paddle2.x=this.width-50;
@@ -114,9 +115,10 @@ var Pong = new Phaser.Class({
       this.ball.setVelocityX(this.velocityX);
       this.ball.setVelocityY(this.velocityY);
     },
+
     collisionPaddle1: function (ball, paddle)
     {
-        //! console.log('pre angle mod: ' + ball.body.angle.toFixed(5 ))
+        // console.log('pre angle mod: ' + ball.body.angle.toFixed(5 ))
         // ball.angle = ball.angle*2
         // console.log( 'post angle mod: ' + ball.body.angle.toFixed(5) )
 
@@ -132,39 +134,33 @@ var Pong = new Phaser.Class({
         // Hits the top side
         if ( ball.y < paddle.y ) {
             // console.log( 'top' )
-            // console.log(ball)
+            console.log(ball)
             offset = ball.y - paddle.y;
             // Faster speed the further away it is from the center
             // ball.setVelocityY( -5 * offset );
-            ball.setVelocityX( -5 * offset );
+            ball.body.angularVelocity = offset *1.5
+            console.log(ball)
+            ball.setVelocityX( -10 * offset );
             // ball.body.angle = ball.body.angle + 2
 
         }
         // Hits the bot side
         else if ( ball.y > paddle.y ) {
             // console.log( 'bot' )
-            // console.log(ball)
+            console.log(ball.body)
             offset = ball.y - paddle.y;
             // ball.body.angle = ball.body.angle *250
             // Faster speed the further away it is from the center
             // ball.setVelocityY( 5 * offset );
-            ball.setVelocityX( 5 * offset );
-
-        } else if ( ball.y === paddle.y ) {
-            // console.log('paddle1 hit-- ball.x: ' + ball.x + "  and ball.y: " + ball.y)
-            console.log(ball.body)
-            // ball.setVelocityY(Math.random() * 500)
-            // ball.body.angle = ball.body.angle *1.10
+            ball.setVelocityX( 10 * offset );
+            ball.body.angularVelocity = offset *1.5
 
         }
-    },
-    // ==================================================================================================
+        },
+    //==================================================================================================
 
     update: function ()
     {
-
-
-
         //  Scoreboard stuff
         this.score1.innerText = this.scoreCount1;
         this.score2.innerText = this.scoreCount2;
@@ -181,13 +177,17 @@ var Pong = new Phaser.Class({
         }
         if ( this.ball.body.blocked.up ) {
             // console.log('top bound hit-- ball.x: ' + this.ball.velocityX + "  and ball.y: " + this.ball.y)
+            let ballAngle = Math.abs(this.ball.angle)
             console.log( this.ball.body.angle )
+            if ( ballAngle > -1.57 && 1.58 > ballAngle ) {
+                this.ball.angle = this.ball.angle*1.1
+            }
+            // this.ball.RotateTo(-1.5707963267948966, -1.5707963267948966*1.1)
             // this.ball.body.angle.RotateTo(this.ball.body.angle, this.ball.body.angle*1.1)
-            console.log(this.ball.Phaser.Math.Angle(ball))
 
         }
         if ( this.ball.body.blocked.down ) {
-            console.log(this.ball.body)
+            // console.log(this.ball.body)
             // console.log('top bound hit-- ball.x: ' + this.ball.velocityX + "  and ball.y: " + this.ball.y)
         // this.ball.body.angularAcceleration = this.ball.body.angle * 2
         // this.ball.velocity = this.ball.velocity*.98
@@ -255,22 +255,22 @@ var Pong = new Phaser.Class({
         }
         // ==============================================
         //  Introducing our fake AI computer opponent!
-        this.paddle1.body.velocity.setTo(this.ball.body.velocity.y)         // This gets paddle 2 to track the ball
-        //    this.paddle1.body.velocity.x=0                                   // disable movement on x axis for p2
-        this.paddle1.body.maxVelocity.y = 450                               // cap p2 y velocity
-        this.paddle1.body.maxVelocity.x = 450                                   // cap p2 x velocity
+        // this.paddle1.body.velocity.setTo(this.ball.body.velocity.y)         // This gets paddle 2 to track the ball
+        // //    this.paddle1.body.velocity.x=0                                   // disable movement on x axis for p2
+        // this.paddle1.body.maxVelocity.y = 450                               // cap p2 y velocity
+        // this.paddle1.body.maxVelocity.x = 450                                   // cap p2 x velocity
 
-        if (this.ball.x >= (this.width/2 -30) ) {
-                this.paddle1.body.setVelocityX(0)
-        }else {
-                this.paddle1.body.setVelocityX(this.ball.body.velocity.y*2)
-                }
+        // if (this.ball.x >= (this.width/2 -50) ) {
+        //         this.paddle1.body.setVelocityX(0)
+        // }else {
+        //         this.paddle1.body.setVelocityX(this.ball.body.velocity.y*2)
+        //         }
         this.paddle2.body.velocity.setTo(this.ball.body.velocity.y)       // This gets paddle 2 to track the ball
     //    this.paddle2.body.velocity.x=0                               // disable movement on x axis for p2
         this.paddle2.body.maxVelocity.y = 400                        // cap p2 y velocity
         this.paddle2.body.maxVelocity.x = 400                        // cap p2 x velocity
 
-        if ( this.ball.x <= this.width / 2 + 30 ) {
+        if ( this.ball.x <= this.width / 2 + 50 ) {
                this.paddle2.body.setVelocityX(0)
            } else {
                    this.paddle2.body.setVelocityX(this.ball.body.velocity.y*2)
