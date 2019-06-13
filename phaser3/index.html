@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+    <div class="page-container">
+        <div class="sidebar">
+            <div class="title">
+                <span class="title-top">Pong</span>
+            </div>
+            <div class="instructions-container">
+                <span class="instructions">Instructions</span>
+                <main class="rules-container">
+                    <p>Welcome to Pong.  A classic game, with a couple new twists!<br>
+                        Originally, Pong was played on just the Y-axis (up and down)<br>
+                        This version, however, also incorporates the X-axis (left and right)<br>
+                        Player 1 moves using WASD, Player 2 uses up down left right.<br>
+                        Player 1 will get a point when they get the ball to hit the right boundary wall.<br>
+                        Player 2 will get a point when they get the ball to hit the left boundary wall.<br>
+                        Go have fun!
+                    </p>
+                </main>
+            </div>
+
+        </div>
+        <div id="game-container">
+            <section class="stats-container">
+                    <div class="score-container">
+                        <span class="score1">Score: </span>
+                        <span class="score1"></span>
+                        <span class="score2">Score: </span>
+                        <span class="score2"></span>
+                    </div>
+            </section>
+        </div>
+    </div>
+<script src="./script.js"></script>
+</body>
+</html>

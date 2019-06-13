@@ -34,6 +34,8 @@
         var score2
         //  maybe keyboard control
         var cursors
+
+        var bounds
 // -------------------------------------------------------------
 
 
@@ -41,7 +43,7 @@
         function preload(){
             // image files
             this.load.image('paddle', '../assets/paddle.png')
-            this.load.image('ball', '../assets/ball.png')
+            this.load.image('ball', '../assets/balls.png')      //  original ball was causing hitbox issues
 
             // sound files
             game.load.audio('hit_1', ['../assets/hit_1.wav'])
@@ -54,12 +56,16 @@
             //  Phaser sets things up in layers.  First to be called will be the bottom most layer.
             //  thus any background images need to be loaded first, otherwise they will cover over anything else
             game.stage.backgroundColor = '#888888';
+
+            bounds = new Phaser.Rectangle(100, 100, 500, 400);
+
             // Create the paddles
             paddle1 = create_paddle(0, game.world.centerY)
+
             paddle2 = create_paddle(game.world.width -8,game.world.centerY)
             // Create the ball
             ball_launched = false
-            ball_velocity = 350                                 //  inital ball velocity.  Can have different starting points if I implement difficulties
+            ball_velocity = 500                                 //  inital ball velocity.  Can have different starting points if I implement difficulties
             ball = create_ball(game.world.centerX, game.world.centerY)
             game.input.onDown.add(launch_ball, this)            //  launch the ball on mouse click
             //  Scoreboard
@@ -139,7 +145,7 @@
             game.physics.arcade.enable(ball, true)                    //  Enable physics
             ball.body.collideWorldBounds = true                 //  Keeps ball confined to world
             ball.body.bounce.setTo(0.9,0.9)                        //  Setting bounce velocities
-            ball.scale.setTo(0.25,0.25)                         //  shrink ball size to 25% of original
+            // ball.scale.setTo(0.25,0.25)                         //  shrink ball size to 25% of original
 
             return ball
         }
