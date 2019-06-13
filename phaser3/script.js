@@ -299,8 +299,9 @@ var Pong = new Phaser.Class({
         physics: {
             default: 'arcade',
             arcade: {
-                debug: true
-            }        },
+                debug: false
+            }
+        },
     };
 
 
