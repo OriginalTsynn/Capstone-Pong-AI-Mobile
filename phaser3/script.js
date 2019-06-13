@@ -40,8 +40,9 @@ var Pong = new Phaser.Class({
     preload: function (){
         // image files
         this.load.image('paddle', '../assets/paddle.png')
+        this.load.image('paddle2', '../assets/paddle2.png')
         this.load.image('ball', '../assets/balls.png')      //  original ball was causing hitbox issues
-        this.load.image('red', '../assets/contrail.png');
+        this.load.image('red', '../assets/ball.png');
     },
     create: function ()
     {
@@ -50,7 +51,7 @@ var Pong = new Phaser.Class({
 
         var particles = this.add.particles( 'red' );
         var emitter = particles.createEmitter({
-            speed: 60,
+            speed: 5,
             scale: { start: 1, end: 0 },
             blendMode: 'ADD'
         });
@@ -62,17 +63,18 @@ var Pong = new Phaser.Class({
         this.ball.setVelocityY(this.velocityY);
         this.ball.setVelocityX(this.velocityX);
 
-        emitter.startFollow(this.ball).setScale(0.4,0.4);
+        emitter.startFollow( this.ball )
+        emitter.setScale( 0.1, 0.1 );
 
 
 
         // Setting up the paddles
-        this.paddle1 = this.physics.add.sprite( 0, this.height / 2, 'paddle', 'paddle.png' )                //  initializing the sprite
+        this.paddle1 = this.physics.add.sprite( 0, this.height / 2, 'paddle')                //  initializing the sprite
         this.paddle1.setImmovable()                                                                         //  Set paddle to immovable/impassable
         this.paddle1.setScale( 0.5, 0.5 )                                                                   //  shrink paddle size by 50%
         this.paddle1.setCollideWorldBounds( true )                                                          //  confine the paddle to the canvas boundaries
 
-        this.paddle2 = this.physics.add.sprite( this.width - 50, this.height / 2, 'paddle', 'paddle.png' )
+        this.paddle2 = this.physics.add.sprite( this.width - 50, this.height / 2, 'paddle2' )
         this.paddle2.setImmovable()
         this.paddle2.setScale( 0.5, 0.5 )
         this.paddle2.setCollideWorldBounds( true );
@@ -80,6 +82,7 @@ var Pong = new Phaser.Class({
         // Colliders that handle ball to paddle contact
         this.physics.add.collider( this.ball, this.paddle1, this.collisionPaddle1, null, this)
         this.physics.add.collider( this.ball, this.paddle2, this.collisionPaddle2, null, this)
+        this.physics.add.collider( this.paddle1, this.paddle2, this.collisionPaddle2, null, this)
 
 
         // @ts-ignore
@@ -89,10 +92,6 @@ var Pong = new Phaser.Class({
         this.keyA=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-
-        // @ts-ignore
-        // console.log(cursor);
-
 
     },
 
@@ -119,19 +118,28 @@ var Pong = new Phaser.Class({
         // Hits the top side
         if ( ball.y < paddle.y ) {
             console.log( 'top' )
+            console.log(ball)
             offset = paddle.x - ball.x;
             // Faster speed the further away it is from the center
-            ball.setVelocityX( -30 * offset );
+            ball.setVelocityX( -5 * offset );
         }
         // Hits the bot side
         else if ( ball.y > paddle.y ) {
             console.log( 'bot' )
+            console.log(ball)
             offset = ball.y - paddle.y;
+            ball.body.angle = ball.body.angle *1.05
             // Faster speed the further away it is from the center
-            ball.setVelocityX( 20 * offset );
+            ball.setVelocityX( 5 * offset );
+            ball.body.angle = ball.body.angle *1.05
+
         } else if ( ball.y === paddle.y ) {
-            console.log('center')
-            ball.setVelocityY(ball.y*1.1)
+            console.log( 'center' )
+            console.log(ball)
+            ball.setVelocityY( ball.y * 1.4 )
+            ball.setVelocityX( ball.y * 1.4 )
+            ball.body.angle = ball.body.angle *1.05
+
         }
     },
     // ==================================================================================================
@@ -221,8 +229,8 @@ var Pong = new Phaser.Class({
            this.paddle1.body.velocity.setTo(this.ball.body.velocity.y)       // This gets paddle 2 to track the ball
         //    this.paddle1.body.velocity.x=0                               // disable movement on x axis for p2
            this.paddle1.body.velocity.x=0                               // disable movement on x axis for p2
-           this.paddle1.body.maxVelocity.y = 450                        // cap p2 y velocity
-           this.paddle1.body.maxVelocity.x = 450                        // cap p2 x velocity
+           this.paddle1.body.maxVelocity.y = 4500                        // cap p2 y velocity
+           this.paddle1.body.maxVelocity.x = 4500                        // cap p2 x velocity
            if (this.ball.x >= this.width/2 ) {
                    this.paddle1.body.setVelocityX(0)
            }else {
