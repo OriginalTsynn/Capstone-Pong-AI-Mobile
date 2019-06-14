@@ -276,10 +276,10 @@ var Pong = new Phaser.Class({
                    this.paddle2.body.setVelocityX(this.ball.body.velocity.y*2)
                }
 
-    if ( this.ball.x < this.paddle1.x ) {       //  cheat mode for p1,
-        this.paddle1.x = 50
-        this.paddle1.y = this.ball.y
-            }
+    // if ( this.ball.x < this.paddle1.x ) {       //  cheat mode for p1,
+    //     this.paddle1.x = 50
+    //     this.paddle1.y = this.ball.y
+            // }
 
 
     }

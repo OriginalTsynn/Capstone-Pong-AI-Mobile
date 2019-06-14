@@ -5,3 +5,11 @@ body {
 
 
 
+canvas {
+    height: 100vh !important;
+    width: 100vw !important;
+}
+
+.sidebar {
+    display: none;
+}
