@@ -58,7 +58,7 @@ var Pong = new Phaser.Class({
         // Create ball - give bounciness of 1 and allow it to interact with scene border.
         //  h/2 w/2 centers the ball
         //  TODO Randomize ball starting direction and velocity
-        this.ball = this.physics.add.sprite( this.width / 2, this.height / 2, 'ball', 'balls.png' )
+        this.ball = this.physics.add.sprite( this.width / 2, this.height / 2, 'ball', 'balls.png' ).setDepth(1)
         this.ball.setCollideWorldBounds( true )
         this.ball.setBounce( 1.01, 1.01 )
         this.ball.setScale( 0.5, 0.5 )
@@ -73,13 +73,13 @@ var Pong = new Phaser.Class({
 
 
         // Setting up the paddles
-        this.paddle1 = this.physics.add.sprite( 0, this.height / 2, 'paddle')       //  initializing the sprite
+        this.paddle1 = this.physics.add.sprite( 0, this.height / 2, 'paddle').setDepth(1)       //  initializing the sprite
         this.paddle1.setImmovable()                                                                         //  Set paddle to immovable/impassable
         this.paddle1.setScale( 0.5, 0.5 )                                                                   //  shrink paddle size by 50%
         this.paddle1.setCollideWorldBounds( true )                                                          //  confine the paddle to the canvas boundaries
         this.paddle1.setFriction(0)
 
-        this.paddle2 = this.physics.add.sprite( this.width - 50, this.height / 2, 'paddle2' )
+        this.paddle2 = this.physics.add.sprite( this.width - 50, this.height / 2, 'paddle2' ).setDepth(1)
         this.paddle2.setImmovable()
         this.paddle2.setScale( 0.5, 0.5 )
         this.paddle2.setCollideWorldBounds( true );
