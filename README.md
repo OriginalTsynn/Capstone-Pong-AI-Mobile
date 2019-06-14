@@ -5,14 +5,10 @@ Welcome to the classic-ish game of Pong!  An old favorite, with a couple new twi
 This should be used for entertainment purposes, and it solves a common problem many of us face everyday:  BOREDOM
 
 ## Brief Example
-![alt] (/Users/slevin/SEI/Projects/Capstone-Pong-AI-Mobile/screenshot.png)
-
+Reference-style:
 ![alt text][logo]
 
-[logo]: /Users/slevin/SEI/Projects/Capstone-Pong-AI-Mobile/Screen Shot 2019-06-14 at 2.56.12 PM.png "Logo Title Text 2"
-
-    This could be a code snippet showing how your project should be used (if it is meant to be integrated into another app)
-    This could be a screenshot of your project running in the browser (if it is a stand-alone application)
+[logo]: https://github.com/OriginalTsynn/Capstone-Pong-AI-Mobile/blob/master/screenshot.png "Pong"
 
 ##  List of Features / User Stories
 
@@ -30,7 +26,7 @@ This should be used for entertainment purposes, and it solves a common problem m
         4. Difficulty selection
         5. Scenes (through Phaser)
         6. A score cap/game over terms.
-        7.
+        7.  COMBAT FUNCTIONALITY
 
 ## List of Technologies Used
 This project is fairly light on technologies used.  In its current iteration, this project is done in HTML and JavaScript, as well as utilizing a very powerful library known as Phaser.
