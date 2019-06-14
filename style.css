@@ -1,15 +1,6 @@
-body {
-    height: 100vh;
-    width: 100vw;
-}
 
 
-
-canvas {
-    height: 100vh !important;
-    width: 100vw !important;
-}
 
 .sidebar {
-    display: none;
+    float: right;
 }
