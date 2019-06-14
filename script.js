@@ -96,10 +96,16 @@ var Pong = new Phaser.Class({
         this.keyW=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyA=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        this.keyD=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keyD = this.input.keyboard.addKey( Phaser.Input.Keyboard.KeyCodes.D );
+
+
+        // this.input.on('pointermove', function (e) {             //  mouse control
+        //     this.paddle1.x = this.input.x
+        //     this.paddle1.y = this.input.y
+        // }, this);
 
     },
-
+//========================================
     reset: function()
     {
       this.velocityX=Phaser.Math.Between(-100, 100);
@@ -156,7 +162,10 @@ var Pong = new Phaser.Class({
             ball.body.angularVelocity = offset *1.5
 
         }
-        },
+    },
+
+
+
     //==================================================================================================
 
     update: function ()
@@ -164,6 +173,7 @@ var Pong = new Phaser.Class({
         //  Scoreboard stuff
         this.score1.innerText = this.scoreCount1;
         this.score2.innerText = this.scoreCount2;
+
 
         if(this.ball.body.blocked.right){
             this.scoreCount1 += 1
@@ -224,35 +234,35 @@ var Pong = new Phaser.Class({
         //===================================================================
         //  Player 2 controls
         // @ts-ignore
-        if(cursor.up.isDown)// move up if the up key is pressed
-        {
-            this.paddle2.setVelocityY( -350 );
+        // if(cursor.up.isDown)// move up if the up key is pressed
+        // {
+        //     this.paddle2.setVelocityY( -350 );
 
-        }
-        // @ts-ignore
-        else if(cursor.down.isDown)// move down if the down key is pressed
-        {
-            this.paddle2.setVelocityY(350);
-        }
-        // @ts-ignore
-        else if(cursor.left.isDown)// move down if the down key is pressed
-        {
-            if ( this.paddle2.x == this.width / 2 || this.paddle2.x < this.width/2) {
-                this.paddle2.setVelocityX( 0 )
-            } else {
-                this.paddle2.setVelocityX( -350 );
-            }
-        }
-        // @ts-ignore
-        else if(cursor.right.isDown)// move down if the down key is pressed
-        {
-                this.paddle2.setVelocityX( 350 );
-        }
-        else//stop if no key is pressed.
-        {
-            this.paddle2.setVelocityY(0);
-            this.paddle2.setVelocityX(0);
-        }
+        // }
+        // // @ts-ignore
+        // else if(cursor.down.isDown)// move down if the down key is pressed
+        // {
+        //     this.paddle2.setVelocityY(350);
+        // }
+        // // @ts-ignore
+        // else if(cursor.left.isDown)// move down if the down key is pressed
+        // {
+        //     if ( this.paddle2.x == this.width / 2 || this.paddle2.x < this.width/2) {
+        //         this.paddle2.setVelocityX( 0 )
+        //     } else {
+        //         this.paddle2.setVelocityX( -350 );
+        //     }
+        // }
+        // // @ts-ignore
+        // else if(cursor.right.isDown)// move down if the down key is pressed
+        // {
+        //         this.paddle2.setVelocityX( 350 );
+        // }
+        // else//stop if no key is pressed.
+        // {
+        //     this.paddle2.setVelocityY(0);
+        //     this.paddle2.setVelocityX(0);
+        // }
         // ==============================================
         //  Introducing our fake AI computer opponent!
         // this.paddle1.body.velocity.setTo(this.ball.body.velocity.y)         // This gets paddle 2 to track the ball
@@ -267,8 +277,8 @@ var Pong = new Phaser.Class({
         //         }
         this.paddle2.body.velocity.setTo(this.ball.body.velocity.y)       // This gets paddle 2 to track the ball
     //    this.paddle2.body.velocity.x=0                               // disable movement on x axis for p2
-        this.paddle2.body.maxVelocity.y = 400                        // cap p2 y velocity
-        this.paddle2.body.maxVelocity.x = 400                        // cap p2 x velocity
+        this.paddle2.body.maxVelocity.y = 100                        // cap p2 y velocity
+        this.paddle2.body.maxVelocity.x = 100                        // cap p2 x velocity
 
         if ( this.ball.x <= this.width / 2 + 50 ) {
                this.paddle2.body.setVelocityX(0)
