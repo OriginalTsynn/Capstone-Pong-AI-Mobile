@@ -4,5 +4,5 @@ This is my unit 4 project for General Assembly.  The plan is to create Pong, mak
 Technologies used:  HTML, JavaScript, Phaser
 
 ##  Phaser
-    https://photonstorm.github.io/phaser3-docs/index.html
-    https://phaser.io/
+https://photonstorm.github.io/phaser3-docs/index.html <br>
+https://phaser.io/
